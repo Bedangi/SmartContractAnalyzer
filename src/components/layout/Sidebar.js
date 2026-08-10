@@ -27,31 +27,31 @@ const navItems = [
 
 function Sidebar() {
   return (
-    <aside className="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-xl px-md w-64 overflow-y-auto bg-surface-container-low border-r border-outline-variant z-50">
+    <aside className="fixed top-0 left-0 z-50 flex-col hidden w-64 h-screen overflow-y-auto border-r lg:flex py-xl px-md bg-surface-container-low border-outline-variant">
 
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col h-full gap-6">
 
         {/* Logo */}
         <div className="flex items-center gap-3 px-2">
-          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-on-primary">
             <span className="material-symbols-outlined">
               gavel
             </span>
           </div>
 
           <div>
-            <h1 className="font-display-lg text-title-md font-extrabold text-primary">
-              LexisAI
+            <h1 className="font-extrabold font-display-lg text-title-md text-primary">
+              Smart Contract Analyzer
             </h1>
 
             <p className="font-label-md text-on-surface-variant opacity-70">
-              Legal Intelligence
+              
             </p>
           </div>
         </div>
 
         {/* New Analysis */}
-        <button className="mt-4 flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-4 rounded-xl font-bold active:scale-95 transition-transform">
+        <button className="flex items-center justify-center gap-2 px-4 py-3 mt-4 font-bold transition-transform bg-primary text-on-primary rounded-xl active:scale-95">
           <span className="material-symbols-outlined">
             add
           </span>
@@ -91,9 +91,9 @@ function Sidebar() {
         </nav>
 
         {/* Bottom Section */}
-        <div className="pt-6 border-t border-outline-variant space-y-1">
+        <div className="pt-6 space-y-1 border-t border-outline-variant">
 
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+          <button className="flex items-center w-full gap-3 px-4 py-3 transition-colors rounded-lg text-on-surface-variant hover:bg-surface-container-high">
             <span className="material-symbols-outlined">
               help_outline
             </span>
@@ -103,7 +103,7 @@ function Sidebar() {
             </span>
           </button>
 
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/10 rounded-lg transition-colors">
+          <button className="flex items-center w-full gap-3 px-4 py-3 transition-colors rounded-lg text-error hover:bg-error-container/10">
             <span className="material-symbols-outlined">
               logout
             </span>

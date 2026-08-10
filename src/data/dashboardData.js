@@ -1,6 +1,6 @@
 export const analysisData = {
   company: {
-    name: "SocialNet Plus",
+    name: "Smart Contract Analyzer",
     icon: "hub",
   },
 
@@ -9,7 +9,7 @@ export const analysisData = {
   status: "Analysis Complete",
 
   description:
-    "The Terms of Service for SocialNet Plus have been scanned using LexisAI v4.0. We've identified several critical clauses regarding user data ownership.",
+    "The Terms of Service for Smart Contract Analyzer have been scanned. We've identified several critical clauses regarding user data ownership.",
 
   verification: {
     verified: true,
@@ -70,17 +70,17 @@ export const riskData = [
 export const clauseData = [
   {
     id: 1,
-    title: "Indemnification",
+    title: "Indentification",
     riskLevel: "Critical Risk",
     riskType: "critical",
-    text: "...user shall defend, indemnify and hold harmless SocialNet Plus against all claims, costs, damages, losses, expenses, including attorneys’ fees...",
+    text: "...user shall defend, indemnify and hold harmless Smart Contract Analyzer against all claims, costs, damages, losses, expenses, including attorneys’ fees...",
   },
   {
     id: 2,
-    title: "Force Majeure",
+    title: "Force Major",
     riskLevel: "Moderate Risk",
     riskType: "moderate",
-    text: "SocialNet Plus is not liable for performance failures due to events beyond its reasonable control, including but not limited to, global health crises...",
+    text: "Smart Contract Analyzer is not liable for performance failures due to events beyond its reasonable control, including but not limited to, global health crises...",
   },
 ];
 
