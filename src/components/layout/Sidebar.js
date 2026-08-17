@@ -1,31 +1,30 @@
+
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 const navItems = [
   {
     name: "Dashboard",
     icon: "dashboard",
+    path: "/",
   },
   {
-    name: "History",
+    name: "Analysis",
     icon: "history",
+    path: "/analysis/demo",
   },
   {
-    name: "Reports",
-    icon: "description",
-  },
-  {
-    name: "Saved",
-    icon: "bookmark",
-  },
-  {
-    name: "Compare",
+    name: "Comparison and Recommendations",
     icon: "compare_arrows",
-  },
-  {
-    name: "Settings",
-    icon: "settings",
+    path: "/recommendations/demo",
   },
 ];
 
-function Sidebar() {
+function Sidebar({activePage='Dashboard'}) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   return (
     <aside className="fixed top-0 left-0 z-50 flex-col hidden w-64 h-screen overflow-y-auto border-r lg:flex py-xl px-md bg-surface-container-low border-outline-variant">
 
@@ -51,7 +50,7 @@ function Sidebar() {
         </div>
 
         {/* New Analysis */}
-        <button className="flex items-center justify-center gap-2 px-4 py-3 mt-4 font-bold transition-transform bg-primary text-on-primary rounded-xl active:scale-95">
+        <button onClick={() => navigate("/analysis/new")} className="flex items-center justify-center gap-2 px-4 py-3 mt-4 font-bold transition-transform bg-primary text-on-primary rounded-xl active:scale-95">
           <span className="material-symbols-outlined">
             add
           </span>
@@ -63,11 +62,16 @@ function Sidebar() {
         <nav className="flex-1 mt-6 space-y-1">
 
           {navItems.map((item) => {
-            const isActive = item.name === "Dashboard";
+            const isActive = item.name === activePage;
 
             return (
               <button
                 key={item.name}
+                onClick={() => {
+                  if (item.path !== "#") {
+                    navigate(item.path);
+                  }
+                }}
                 className={`
                   w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left
                   ${

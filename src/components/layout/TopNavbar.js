@@ -1,6 +1,8 @@
-function TopNavbar() {
+import { useNavigate } from "react-router-dom";
+function TopNavbar({ activePage = 'Dashboard' }) {
+  const navigate = useNavigate();
   return (
-    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 bg-surface border-b border-outline-variant h-16 flex justify-between items-center px-lg shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between h-16 border-b shadow-sm lg:left-64 bg-surface border-outline-variant px-lg">
 
       {/* Left */}
       <div className="flex items-center gap-4">
@@ -44,24 +46,36 @@ function TopNavbar() {
       <div className="flex items-center gap-6">
 
         {/* Navigation */}
-        <div className="hidden md:flex gap-6">
+        <div className="hidden gap-6 md:flex">
 
-          <button className="font-label-md text-primary border-b-2 border-primary pb-1">
+          <button onClick={() => navigate("/")} className={
+            activePage === "Dashboard"
+              ? "font-label-md text-primary border-b-2 border-primary pb-1"
+              : "font-label-md text-on-surface-variant hover:text-primary transition-colors"
+          }>
             Dashboard
           </button>
 
-          <button className="font-label-md text-on-surface-variant hover:text-primary transition-colors">
-            History
+          <button onClick={() => navigate("/analysis/demo")} className={
+            activePage === "History"
+              ? "font-label-md text-primary border-b-2 border-primary pb-1"
+              : "font-label-md text-on-surface-variant hover:text-primary transition-colors"
+          }>
+            Analysis
           </button>
 
-          <button className="font-label-md text-on-surface-variant hover:text-primary transition-colors">
-            Reports
+          <button onClick={() => navigate("/recommendations/demo")} className={
+            activePage === "Reports"
+              ? "font-label-md text-primary border-b-2 border-primary pb-1"
+              : "font-label-md text-on-surface-variant hover:text-primary transition-colors"
+          }>
+            Recommendations
           </button>
 
         </div>
 
         {/* User controls */}
-        <div className="flex items-center gap-3 border-l border-outline-variant pl-6">
+        <div className="flex items-center gap-3 pl-6 border-l border-outline-variant">
 
           <button className="relative hover:bg-surface-container-high p-1.5 rounded-full transition-colors">
             <span className="material-symbols-outlined text-on-surface-variant">
@@ -78,7 +92,7 @@ function TopNavbar() {
           </button>
 
           {/* Temporary avatar */}
-          <div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-on-primary">
             <span className="material-symbols-outlined text-[20px]">
               person
             </span>

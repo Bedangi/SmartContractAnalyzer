@@ -1,7 +1,9 @@
 import ComparisonCard from "./ComparisonCard";
 import { comparisonData } from "../../data/dashboardData";
+import { useNavigate } from "react-router-dom";
 
 function Comparison() {
+  const navigate = useNavigate();
   return (
     <section className="space-y-4">
 
@@ -9,7 +11,7 @@ function Comparison() {
         Comparison
       </h3>
 
-      <div className="bg-surface-container-low rounded-xl border border-outline-variant p-xl space-y-6">
+      <div className="space-y-6 border bg-surface-container-low rounded-xl border-outline-variant p-xl">
 
         <p className="text-label-md text-on-surface-variant">
           Websites with similar services but better risk profiles:
@@ -34,7 +36,7 @@ function Comparison() {
         {/* Action */}
         <div className="pt-4">
 
-          <button className="w-full py-3 border border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors">
+          <button onClick={() => navigate("/recommendations/demo")} className="w-full py-3 font-bold transition-colors border border-primary text-primary rounded-xl hover:bg-primary/5">
             Detailed Comparison
           </button>
 

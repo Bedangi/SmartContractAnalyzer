@@ -3,19 +3,19 @@ import TopNavbar from "./TopNavbar";
 import BottomNavbar from "./BottomNavbar";
 import FloatingActionButton from "./FloatingActionButton";
 
-function AppLayout({ children }) {
+function AppLayout({ children ,activePage = "Dashboard"}) {
   return (
-    <div className="h-screen bg-background text-on-surface overflow-hidden">
+    <div className="h-screen overflow-hidden bg-background text-on-surface">
 
-      <Sidebar />
+      <Sidebar activePage={activePage}/>
 
-      <main className="lg:ml-64 h-full flex flex-col overflow-hidden">
+      <main className="flex flex-col h-full overflow-hidden lg:ml-64">
 
-        <TopNavbar />
+        <TopNavbar activePage={activePage} />
 
         <div className="flex-1 mt-16 overflow-y-auto p-lg lg:p-xl scroll-smooth">
 
-          <div className="max-w-container-max mx-auto">
+          <div className="mx-auto max-w-container-max">
             {children}
           </div>
 
