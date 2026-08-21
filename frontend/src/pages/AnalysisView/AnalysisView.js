@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { useSearchParams } from "react-router-dom";
 import AppLayout from "../../components/layout/AppLayout";
 import LegalDocument from "../../components/analysis/LegalDocument";
 import AIRiskPanel from "../../components/analysis/AIRiskPanel";
@@ -7,9 +7,11 @@ import AIRiskPanel from "../../components/analysis/AIRiskPanel";
 import { useAnalysis } from "../../context/AnalysisContext";
 
 function AnalysisView() {
+  const [searchParams] = useSearchParams();
   const {
     contract,
     analysisResult,
+    riskAnalysisResult,
   } = useAnalysis();
 
   const [selectedClause, setSelectedClause] =
@@ -17,15 +19,31 @@ function AnalysisView() {
 
   // Select the first clause when the contract becomes available
   useEffect(() => {
-    if (
-      contract?.clauses?.length > 0 &&
-      !selectedClause
-    ) {
+    if (!contract?.clauses?.length) {
+      return;
+    }
+
+    const clauseFromUrl =
+      searchParams.get("clause");
+
+    const clauseExists =
+      contract.clauses.some(
+        (clause) =>
+          clause.id === clauseFromUrl
+      );
+
+    if (clauseExists) {
+      setSelectedClause(clauseFromUrl);
+    } else if (!selectedClause) {
       setSelectedClause(
         contract.clauses[0].id
       );
     }
-  }, [contract, selectedClause]);
+  }, [
+    contract,
+    searchParams,
+    selectedClause,
+  ]);
 
   // Original clause from the current contract
   const selectedClauseData =
@@ -33,14 +51,20 @@ function AnalysisView() {
       (clause) =>
         clause.id === selectedClause
     );
-
-  // AI result for the selected clause
-  const selectedClauseAnalysis =
+  const selectedClauseSummary =
     analysisResult?.clauses?.find(
       (clause) =>
         clause.id === selectedClause
     );
 
+  // AI result for the selected clause
+  const selectedClauseAnalysis =
+    riskAnalysisResult?.clauses?.find(
+      (clause) =>
+        clause.clause_id === selectedClause
+    );
+
+  
   return (
     <AppLayout activePage="History">
 
@@ -59,6 +83,7 @@ function AnalysisView() {
         {/* LEFT: Original Contract */}
         <LegalDocument
           clauses={contract?.clauses || []}
+          riskAnalysisResult={riskAnalysisResult}
           selectedClause={selectedClause}
           onClauseSelect={setSelectedClause}
         />
@@ -68,6 +93,7 @@ function AnalysisView() {
           selectedClause={selectedClause}
           selectedClauseData={selectedClauseData}
           selectedClauseAnalysis={selectedClauseAnalysis}
+          selectedClauseSummary={selectedClauseSummary}
         />
 
       </div>

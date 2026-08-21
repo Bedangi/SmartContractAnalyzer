@@ -7,12 +7,12 @@ import HighlightedClauses from "../../components/dashboard/HighlightedClauses";
 import Comparison from "../../components/dashboard/Comparison";
 
 import {
-  analysisData,
   executiveSummaryData,
 } from "../../data/dashboardData";
-
+import { useAnalysis } from "../../context/AnalysisContext";
 
 function Dashboard() {
+  const {riskAnalysisResult,}= useAnalysis();
   
   return (
     <AppLayout>
@@ -22,14 +22,14 @@ function Dashboard() {
         {/* Analysis Overview */}
         <section className="grid grid-cols-1 gap-lg">
 
-          <AnalysisOverview analysis={analysisData} />
+          <AnalysisOverview  />
 
           <ExecutiveSummary data={executiveSummaryData} />
 
         </section>
 
         {/* Risk Breakdown */}
-        <RiskBreakdown />
+        <RiskBreakdown riskAnalysisResult={riskAnalysisResult}/>
 
         {/* Clauses + Comparison */}
         <section className="grid grid-cols-1 xl:grid-cols-3 gap-xl">

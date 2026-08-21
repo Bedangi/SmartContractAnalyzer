@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes.summarizer import router as summarizer_router
-
+from routes.risk import router as risk_router
 
 app = FastAPI(
     title="Smart Contract Analyzer API",
@@ -35,6 +35,10 @@ app.add_middleware(
 
 app.include_router(
     summarizer_router
+)
+
+app.include_router(
+    risk_router
 )
 
 

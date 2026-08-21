@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { currentContract } from "../../data/contractData";
 import { runAnalysis } from "../../services/analysisService";
 import { useAnalysis } from "../../context/AnalysisContext";
+import { analyzeRisk } from "../../services/riskService";
 
 function AnalysisLauncher() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function AnalysisLauncher() {
   const {
     setContract,
     setAnalysisResult,
+    setRiskAnalysisResult,
   } = useAnalysis();
 
   const [loading, setLoading] = useState(false);
@@ -23,11 +25,18 @@ function AnalysisLauncher() {
 
       setContract(currentContract);
 
-      const result =
+      const summaryResult =
         await runAnalysis(currentContract);
 
-      setAnalysisResult(result);
+      setAnalysisResult(summaryResult);
 
+      const riskResult =
+        await analyzeRisk(currentContract);
+
+      setRiskAnalysisResult(
+        riskResult
+      );
+    
       navigate(
         `/analysis/${currentContract.document_id}`
       );
@@ -75,7 +84,7 @@ function AnalysisLauncher() {
         <button
           onClick={handleStartAnalysis}
           disabled={loading}
-          className="w-full py-3 font-bold  rounded-xl bg-primary text-on-primary disabled:opacity-50"
+          className="w-full py-3 font-bold rounded-xl bg-primary text-on-primary disabled:opacity-50"
         >
           {loading
             ? "Analyzing Contract..."

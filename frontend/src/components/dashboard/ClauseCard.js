@@ -3,11 +3,31 @@ function ClauseCard({
   riskLevel,
   riskType,
   text,
+  riskScore,
+  category,
+  onClick,
 }) {
-  const isCritical = riskType === "critical";
+  const isCritical =
+    riskLevel === "High";
+
+  const isMedium =
+    riskLevel === "Medium";
+
+  const borderColor = isCritical
+    ? "border-l-error"
+    : "border-l-secondary";
+
+  const badgeStyle = isCritical
+    ? "bg-error/10 text-error"
+    : "bg-secondary/10 text-secondary";
+
+  const backgroundStyle = isCritical
+    ? "bg-error/5 border-error/20"
+    : "bg-secondary/5 border-secondary/20";
 
   return (
     <div
+      onClick={onClick}
       className={`
         bg-white
         p-lg
@@ -15,6 +35,7 @@ function ClauseCard({
         border
         border-outline-variant
         border-l-4
+        ${borderColor}
         flex
         flex-col
         md:flex-row
@@ -23,18 +44,19 @@ function ClauseCard({
         cursor-pointer
         hover:shadow-md
         transition-all
-        ${isCritical ? "border-l-error" : "border-l-primary"}
       `}
     >
+
       {/* Clause Content */}
       <div className="flex-1 space-y-3">
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
 
           <h5 className="font-title-md text-primary">
             {title}
           </h5>
 
+          {/* Risk Level */}
           <span
             className={`
               px-2
@@ -44,29 +66,30 @@ function ClauseCard({
               font-bold
               uppercase
               tracking-widest
-              ${
-                isCritical
-                  ? "bg-error/10 text-error"
-                  : "bg-primary/10 text-primary"
-              }
+              ${badgeStyle}
             `}
           >
             {riskLevel}
           </span>
 
+          {/* Category */}
+          {category && (
+            <span className="px-2 py-0.5 text-[10px] font-semibold tracking-wide rounded bg-surface-container-high text-on-surface-variant">
+              {category}
+            </span>
+          )}
+
         </div>
 
+        {/* Clause Text */}
         <p
           className={`
             text-body-md
             text-on-surface-variant
             p-3
             rounded-lg
-            ${
-              isCritical
-                ? "bg-secondary/5 border-l-2 border-secondary"
-                : ""
-            }
+            border-l-2
+            ${backgroundStyle}
           `}
         >
           "{text}"
@@ -74,27 +97,35 @@ function ClauseCard({
 
       </div>
 
-      {/* Actions */}
-      <div className="flex items-center gap-3 shrink-0">
+      {/* Risk Score */}
+      <div className="flex items-center shrink-0 md:flex-col md:items-end md:justify-center">
 
-        {/* <button className="flex items-center gap-2 px-4 py-2 font-bold transition-transform rounded-lg bg-secondary text-on-secondary text-label-md active:scale-95">
+        <span className="text-xs tracking-wider uppercase text-on-surface-variant">
+          Risk Score
+        </span>
 
-          <span className="material-symbols-outlined text-[18px]">
-            smart_toy
-          </span>
+        <span
+          className={`
+            ml-2
+            md:ml-0
+            text-2xl
+            font-bold
+            ${
+              isCritical
+                ? "text-error"
+                : "text-secondary"
+            }
+          `}
+        >
+          {riskScore}
+        </span>
 
-          Ask AI
-        </button> */}
-
-        {/* <button className="flex items-center justify-center w-10 h-10 transition-colors border rounded-lg border-outline-variant hover:bg-surface-container-high">
-
-          <span className="material-symbols-outlined">
-            more_vert
-          </span>
-
-        </button> */}
+        <span className="ml-1 text-xs text-on-surface-variant md:ml-0">
+          / 10
+        </span>
 
       </div>
+
     </div>
   );
 }

@@ -2,9 +2,9 @@ import ClauseInsight from "./ClauseInsight";
 import AnalysisUnavailable from "../common/AnalysisUnavailable";
 
 function AIRiskPanel({
-  selectedClause,
   selectedClauseData,
   selectedClauseAnalysis,
+  selectedClauseSummary,
 }) {
   return (
     <section
@@ -23,7 +23,7 @@ function AIRiskPanel({
 
       {/* Header */}
       <div
-        className="flex items-center justify-between bg-white border-b shadow-sm  p-lg border-outline-variant"
+        className="flex items-center justify-between bg-white border-b shadow-sm p-lg border-outline-variant"
       >
 
         <div className="flex items-center gap-sm">
@@ -36,38 +36,57 @@ function AIRiskPanel({
 
         {/* These are UI placeholders for now.
             Real values will come from the risk module. */}
-        <div className="flex gap-xs">
+         {selectedClauseAnalysis && (
+          <div className="flex gap-xs">
 
-          <span className="px-3 py-1 font-bold rounded-full bg-surface-container-high text-on-surface-variant text-label-sm">
-            Risk: N/A
-          </span>
+              <span
+                className={`
+                  px-3
+                  py-1
+                  font-bold
+                  rounded-full
+                  text-label-sm
+                  ${
+                    selectedClauseAnalysis.risk_level === "High"
+                      ? "bg-error-container text-on-error-container"
+                      : selectedClauseAnalysis.risk_level === "Medium"
+                      ? "bg-secondary-container text-on-secondary-container"
+                      : "bg-surface-container-high text-on-surface-variant"
+                  }
+                `}
+              >
+                {selectedClauseAnalysis.risk_level}
+              </span>
 
-          <span className="px-3 py-1 font-bold rounded-full bg-surface-container-high text-on-surface-variant text-label-sm">
-            Warnings: N/A
-          </span>
-
-        </div>
+            </div>
+          )}
 
       </div>
 
       {/* Analysis */}
       <div className="flex-1 overflow-y-auto p-lg space-y-lg">
 
-        {selectedClauseData ? (
-
-          <ClauseInsight
-            clause={selectedClauseData}
-            analysis={selectedClauseAnalysis}
-          />
-
-        ) : (
+        {!selectedClauseData ? (
 
           <AnalysisUnavailable
             message="Select a clause to view its analysis."
           />
 
-        )}
+        ) : !selectedClauseAnalysis ? (
 
+          <AnalysisUnavailable
+            message="Risk analysis is not available for this clause yet."
+          />
+
+        ) : (
+
+          <ClauseInsight
+            clause={selectedClauseData}
+            analysis={selectedClauseAnalysis}
+            summary={selectedClauseSummary}
+          />
+
+        )}
         <div className="h-24" />
 
       </div>

@@ -8,7 +8,12 @@ export function AnalysisProvider({ children }) {
   const [contract, setContract] =
     useState(currentContract);
 
+  // Summarizer result
   const [analysisResult, setAnalysisResult] =
+    useState(null);
+
+  // Risk analysis result
+  const [riskAnalysisResult, setRiskAnalysisResult] =
     useState(null);
 
   return (
@@ -19,6 +24,9 @@ export function AnalysisProvider({ children }) {
 
         analysisResult,
         setAnalysisResult,
+
+        riskAnalysisResult,
+        setRiskAnalysisResult,
       }}
     >
       {children}

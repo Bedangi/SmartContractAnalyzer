@@ -16,7 +16,7 @@ function ExecutiveSummary({ data }) {
         <div className="flex items-center justify-between">
 
           <h3 className="font-title-md text-title-md text-primary">
-            Executive Summary
+            Document Summary
           </h3>
 
           {/* <span className="material-symbols-outlined text-error">

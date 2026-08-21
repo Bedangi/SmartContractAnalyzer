@@ -1,5 +1,6 @@
 function LegalDocument({
   clauses = [],
+  riskAnalysisResult,
   selectedClause,
   onClauseSelect,
 }) {
@@ -15,7 +16,7 @@ function LegalDocument({
 
       {/* Header */}
       <div
-        className="sticky top-0 z-20 bg-white border-b  border-outline-variant px-lg py-md"
+        className="sticky top-0 z-20 bg-white border-b border-outline-variant px-lg py-md"
       >
 
         <div className="flex items-center justify-between">
@@ -44,6 +45,54 @@ function LegalDocument({
             const isSelected =
               clause.id === selectedClause;
 
+            const riskAnalysis =
+              riskAnalysisResult?.clauses?.find(
+                (result) =>
+                  result.clause_id === clause.id
+              );
+
+            const riskLevel =
+              riskAnalysis?.risk_level || null;
+              
+            const getRiskClasses = () => {
+
+              if (riskLevel === "High") {
+                return {
+                  border: "border-error/50",
+                  background: "bg-error-container/20",
+                  badge: "bg-error-container text-on-error-container",
+                  text: "text-error",
+                };
+              }
+
+              if (riskLevel === "Medium") {
+                return {
+                  border: "border-secondary/50",
+                  background: "bg-secondary-container/20",
+                  badge: "bg-secondary-container text-on-secondary-container",
+                  text: "text-secondary",
+                };
+              }
+
+              if (riskLevel === "Low") {
+                return {
+                  border: "border-outline-variant",
+                  background: "bg-white",
+                  badge: "bg-surface-container-high text-on-surface-variant",
+                  text: "text-on-surface-variant",
+                };
+              }
+
+              return {
+                border: "border-outline-variant",
+                background: "bg-white",
+                badge: "bg-surface-container-high text-on-surface-variant",
+                text: "text-on-surface-variant",
+              };
+            };
+
+            const riskClasses = getRiskClasses();
+          
             return (
               <button
                 key={clause.id}
@@ -58,10 +107,11 @@ function LegalDocument({
                   p-lg
                   transition-all
                   duration-200
+
                   ${
                     isSelected
                       ? "border-primary bg-primary/5 ring-2 ring-primary/10"
-                      : "border-outline-variant bg-white hover:border-primary/40 hover:bg-surface-container-low"
+                      : `${riskClasses.border} ${riskClasses.background} hover:border-primary/40`
                   }
                 `}
               >
@@ -76,18 +126,37 @@ function LegalDocument({
                       ${
                         isSelected
                           ? "text-primary"
-                          : "text-on-surface"
+                          : riskClasses.text
                       }
                     `}
                   >
                     {clause.section || clause.id}
                   </span>
 
-                  {isSelected && (
-                    <span className="text-primary material-symbols-outlined">
-                      check_circle
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+
+                    {riskLevel && (
+                      <span
+                        className={`
+                          px-2
+                          py-1
+                          rounded-full
+                          text-xs
+                          font-bold
+                          ${riskClasses.badge}
+                        `}
+                      >
+                        {riskLevel}
+                      </span>
+                    )}
+
+                    {isSelected && (
+                      <span className="text-primary material-symbols-outlined">
+                        check_circle
+                      </span>
+                    )}
+
+                  </div>
 
                 </div>
 

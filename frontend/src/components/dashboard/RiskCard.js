@@ -2,6 +2,7 @@ function RiskCard({
   title,
   description,
   score,
+  percentage=0,
   icon,
   theme = "primary",
 }) {
@@ -65,24 +66,32 @@ function RiskCard({
           </span>
         </div>
 
-        <span
-          className={`
-            text-headline-lg
-            font-display-lg
-            ${selectedTheme.text}
-          `}
-        >
-          {score}
-        </span>
+        <div className="flex flex-col items-end">
+
+          <span
+            className={`
+              text-headline-lg
+              font-display-lg
+              ${selectedTheme.text}
+            `}
+          >
+            {score}
+          </span>
+
+          <span className="text-[10px] uppercase tracking-wider text-on-surface-variant">
+            clauses
+          </span>
+
+        </div>
 
       </div>
 
       {/* Information */}
-      <h4 className="font-title-md text-primary mb-1">
+      <h4 className="mb-1 font-title-md text-primary">
         {title}
       </h4>
 
-      <p className="text-label-sm text-on-surface-variant mb-4">
+      <p className="mb-4 text-label-sm text-on-surface-variant">
         {description}
       </p>
 
@@ -91,7 +100,7 @@ function RiskCard({
         <div
           className={`h-full ${selectedTheme.progress}`}
           style={{
-            width: `${Math.min(Math.max(score, 0), 100)}%`,
+            width: `${Math.min(Math.max(percentage, 0), 100)}%`,
           }}
         />
       </div>
