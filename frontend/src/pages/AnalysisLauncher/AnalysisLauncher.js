@@ -5,6 +5,7 @@ import { currentContract } from "../../data/contractData";
 import { runAnalysis } from "../../services/analysisService";
 import { useAnalysis } from "../../context/AnalysisContext";
 import { analyzeRisk } from "../../services/riskService";
+import { classifyDocument } from "../../services/classificationService";
 
 function AnalysisLauncher() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function AnalysisLauncher() {
     setContract,
     setAnalysisResult,
     setRiskAnalysisResult,
+    setClassificationResult,
   } = useAnalysis();
 
   const [loading, setLoading] = useState(false);
@@ -36,10 +38,26 @@ function AnalysisLauncher() {
       setRiskAnalysisResult(
         riskResult
       );
-    
+      
       navigate(
         `/analysis/${currentContract.document_id}`
       );
+      
+      classifyDocument(currentContract)
+      .then((classification) => {
+        console.log("CLASSIFICATION RESPONSE:", classification);
+        console.log(
+          "FIRST CLASSIFIED CLAUSE:",
+          classification?.clauses?.[0]
+        );
+
+        setClassificationResult(classification);
+      })
+      .catch((error) => {
+        console.error("Classification failed:", error);
+      });
+    
+      
 
     } catch (error) {
       console.error(

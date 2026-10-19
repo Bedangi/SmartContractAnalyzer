@@ -16,6 +16,10 @@ export function AnalysisProvider({ children }) {
   const [riskAnalysisResult, setRiskAnalysisResult] =
     useState(null);
 
+  // Legal clause classification result
+  const [classificationResult, setClassificationResult] =
+    useState(null);
+
   return (
     <AnalysisContext.Provider
       value={{
@@ -27,6 +31,9 @@ export function AnalysisProvider({ children }) {
 
         riskAnalysisResult,
         setRiskAnalysisResult,
+
+        classificationResult,
+        setClassificationResult,
       }}
     >
       {children}

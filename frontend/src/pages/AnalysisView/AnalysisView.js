@@ -12,6 +12,7 @@ function AnalysisView() {
     contract,
     analysisResult,
     riskAnalysisResult,
+    classificationResult,
   } = useAnalysis();
 
   const [selectedClause, setSelectedClause] =
@@ -84,6 +85,7 @@ function AnalysisView() {
         <LegalDocument
           clauses={contract?.clauses || []}
           riskAnalysisResult={riskAnalysisResult}
+          classificationResult={classificationResult}
           selectedClause={selectedClause}
           onClauseSelect={setSelectedClause}
         />

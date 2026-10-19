@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## To start
+cd D:\smartcontractanalyzer\backend
+.\.venv\Scripts\Activate.ps1
+(.venv) PS D:\smartcontractanalyzer\backend>  python -m uvicorn app:app --reload
+
+cd D:\smartcontractanalyzer\frontend
+npm start
+
+## Go to legal_clause_classifier
+start venv
+python -m uvicorn api:app --host 127.0.0.1 --port 8001 --reload
