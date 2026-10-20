@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.summarizer import router as summarizer_router
 from routes.risk import router as risk_router
 from routes.classification import router as classification_router
+from routes.segmentation import router as segmentation_router
 
 app = FastAPI(
     title="Smart Contract Analyzer API",
@@ -43,6 +44,7 @@ app.include_router(
 )
 
 app.include_router(classification_router)
+app.include_router(segmentation_router)
 
 # --------------------------------------------------
 # Health Check

@@ -1,0 +1,336 @@
+
+:root {
+  color-scheme: light;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #17211f;
+  --muted: #687772;
+  --border: #e1e8e5;
+  --primary: #176b57;
+  --primary-light: #e7f4ef;
+  --danger: #b42318;
+  --danger-bg: #fff0ee;
+  --warning: #9a6700;
+  --warning-bg: #fff6dc;
+  --success: #18794e;
+  --success-bg: #e9f7ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 Arial, sans-serif;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 18px;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.brand-copy h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.brand-copy p,
+.document-card p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.document-card {
+  padding: 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.document-card .eyebrow {
+  margin: 0 0 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.document-card h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.status {
+  overflow-wrap: anywhere;
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.metric-card {
+  min-width: 0;
+  padding: 11px 9px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.metric-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 22px;
+}
+
+.high-value {
+  color: var(--danger);
+}
+
+.primary-button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin: 18px 0 15px;
+  padding: 4px;
+  border-radius: 11px;
+  background: #e9eeeb;
+}
+
+.tab {
+  padding: 9px 3px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #53615b;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 1px 3px #17211f12;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.empty-state {
+  padding: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 11px;
+  color: var(--muted);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.result-list {
+  display: grid;
+  gap: 10px;
+}
+
+.result-card {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.result-card h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.result-card p {
+  margin: 9px 0 0;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.result-card details {
+  margin-top: 10px;
+}
+
+.result-card summary {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.badge.high {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.badge.medium {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.badge.low {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.badge.neutral {
+  background: #edf1ef;
+  color: #53615b;
+}
+
+.risk-counts,
+.category-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+footer {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+
+/* Clickable risk clauses */
+#risk-content .result-card:not(.risk-detail) {
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+#risk-content .result-card:not(.risk-detail):hover {
+  border-color: var(--primary);
+}
+
+#risk-content .result-card:not(.risk-detail):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Expanded risk details shown below the selected clause */
+#risk-content .risk-detail {
+  margin: -4px 0 10px 10px;
+  border-left: 3px solid var(--primary);
+  background: #f0f7f4;
+}
+
+#risk-content .risk-detail h4 {
+  margin: 0 0 8px;
+}
+
+#risk-content .risk-detail p {
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+
+
+.probability-row {
+  margin: 12px 0;
+}
+
+.probability-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.probability-track {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--border-color, #e5e7eb);
+}
+
+.probability-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: #647fc4;
+  transition: width 0.2s ease;
+}
+
+.red-flag-detail {
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-left: 3px solid #d94a4a;
+  border-radius: 8px;
+}
+
+.red-flag-detail p {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+

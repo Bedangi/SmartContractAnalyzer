@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartContractAnalyzer</title>
+  <link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-icon">SC</div>
+    <div class="brand-copy">
+      <h1>SmartContractAnalyzer</h1>
+      <p>Contract insights at a glance</p>
+    </div>
+  </header>
+
+  <section class="document-card">
+    <p class="eyebrow">CURRENT DOCUMENT</p>
+    <h2 id="page-title">Spotify Terms of Use</h2>
+    <p id="status" class="status">Ready to analyze</p>
+  </section>
+
+  <section class="overview">
+    <div class="metric-card">
+      <span>Clauses</span>
+      <strong id="clause-count">—</strong>
+    </div>
+    <div class="metric-card">
+      <span>High risk</span>
+      <strong id="high-risk-count" class="high-value">—</strong>
+    </div>
+    <div class="metric-card">
+      <span>Services</span>
+      <strong id="service-count">0/3</strong>
+    </div>
+  </section>
+
+  <button id="analyze-button" class="primary-button">
+    Analyze contract
+  </button>
+
+  <nav class="tabs" aria-label="Analysis sections">
+    <button class="tab active" data-tab="summary">Summary</button>
+    <button class="tab" data-tab="risk">Risk</button>
+    <button class="tab" data-tab="classification">Categories</button>
+  </nav>
+
+  <main>
+    <section id="summary-panel" class="tab-panel active">
+      <h3>Contract summary</h3>
+      <div id="summary-content" class="empty-state">
+        Your contract summary will appear here.
+      </div>
+    </section>
+
+    <section id="risk-panel" class="tab-panel">
+      <h3>Risk assessment</h3>
+      <div id="risk-counts" class="risk-counts"></div>
+      <div id="risk-content" class="result-list">
+        <p class="empty-state">Risk findings will appear here.</p>
+      </div>
+    </section>
+
+    <section id="classification-panel" class="tab-panel">
+      <h3>Clause categories</h3>
+      <div id="category-counts" class="category-counts"></div>
+      <div id="classification-content" class="result-list">
+        <p class="empty-state">Classification results will appear here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    AI-generated insights can be imperfect. Review the original terms before making decisions.
+  </footer>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
