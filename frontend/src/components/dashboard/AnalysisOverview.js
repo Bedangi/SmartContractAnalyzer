@@ -9,38 +9,43 @@ function AnalysisOverview() {
   const clauses =
     riskAnalysisResult?.clauses || [];
 
-  // Highest clause risk score represents
-  // the most severe risk detected in the contract.
-  const highestRiskScore =
-    clauses.length > 0
-      ? Math.max(
-          ...clauses.map(
-            (clause) =>
-              clause.risk_score || 0
-          )
-        )
-      : 0;
+  
+  // -----------------------------------------
+  // Document-level risk score
+  // -----------------------------------------
 
-  // Convert module score from 0–10 to
-  // dashboard score from 0–100.
-  const score =
-    (highestRiskScore / 10) * 100;
+  const documentRisk = riskAnalysisResult?.document_risk;
 
-  const safeScore = Math.round(
-    Math.min(
-      Math.max(score, 0),
-      100
-    )
-  );
+  const rawScore = Number(documentRisk?.score);
+
+  const hasDocumentScore =
+    documentRisk?.score != null &&
+    Number.isFinite(rawScore);
+
+  const safeScore = hasDocumentScore
+    ? Math.round(Math.min(Math.max(rawScore, 0), 100))
+    : 0;
 
   const radius = 42;
-  const circumference =
-    2 * Math.PI * radius;
+  const circumference = 2 * Math.PI * radius;
 
   const offset =
     circumference -
-    (safeScore / 100) *
-      circumference;
+    (safeScore / 100) * circumference;
+
+  // Ring color based on document-level risk.
+  const documentRiskLevel =
+    documentRisk?.level?.toLowerCase() || "";
+
+  const ringColor =
+    documentRiskLevel.includes("high")
+      ? "text-error"
+      : documentRiskLevel.includes("medium")
+        ? "text-secondary"
+        : documentRiskLevel.includes("low")
+          ? "text-primary"
+          : "text-surface-container-highest";
+
 
   // -----------------------------------------
   // Contract information
@@ -114,25 +119,23 @@ function AnalysisOverview() {
 
   const description =
     riskAnalysisResult
-      ? `${clauses.length} clauses analyzed. The highest detected clause risk is ${highestRiskScore.toFixed(
-          1
-        )} out of 10.`
+      ? `${clauses.length} clauses analyzed.`
       : "Start an analysis to evaluate the contract's legal and risk profile.";
 
   return (
-    <div className="relative flex flex-col items-center overflow-hidden bg-white border-rounded-xl border-outline-variant p-xl md:flex-row group">
+    <div className="relative flex flex-col items-center justify-between gap-6 overflow-hidden bg-white border-rounded-xl border-outline-variant p-xl md:flex-row md:gap-8 group">
 
       {/* Decorative background */}
       <div className="absolute w-64 h-64 transition-colors duration-700 rounded-full -right-20 -top-20 bg-secondary/5 blur-3xl group-hover:bg-secondary/10" />
 
-      {/* Score Ring */}
-      {/* <div className="relative flex items-center justify-center w-48 h-48 shrink-0">
+      {/* Document Risk Score Ring */}
+      <div className="relative z-10 flex items-center justify-center w-36 h-36 shrink-0">
 
         <svg
           className="w-full h-full -rotate-90"
           viewBox="0 0 100 100"
         >
-
+          {/* Background ring */}
           <circle
             className="text-surface-container-highest"
             cx="50"
@@ -143,8 +146,9 @@ function AnalysisOverview() {
             strokeWidth="8"
           />
 
+          {/* Document score ring */}
           <circle
-            className={`transition-all duration-1000 ease-out ${statusStyles.ring}`}
+            className={`transition-all duration-1000 ease-out ${ringColor}`}
             cx="50"
             cy="50"
             fill="transparent"
@@ -155,25 +159,24 @@ function AnalysisOverview() {
             strokeLinecap="round"
             strokeWidth="8"
           />
-
         </svg>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center">
 
-          <span className={`font-display-lg text-display-lg ${statusStyles.text}`}>
-            {safeScore}
+          <span className="text-3xl font-extrabold text-blue-900">
+            {hasDocumentScore ? safeScore : "--"}
           </span>
 
-          <span className="font-label-md text-on-surface-variant">
+          <span className="text-sm text-on-surface-variant">
             / 100
           </span>
 
         </div>
+      </div>
 
-      </div> */}
 
       {/* Analysis Information */}
-      <div className="z-10 flex-1 space-y-3 text-center md:text-left">
+      <div className="z-10 flex-1 min-w-0 space-y-3 text-center md:text-left">
 
         <div className="flex items-center justify-center gap-3 md:justify-start">
 

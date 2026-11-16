@@ -15,7 +15,7 @@ function TopNavbar({ activePage = 'Dashboard' }) {
 
         {/* Search */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[20px]">
+          {/* <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[20px]">
             search
           </span>
 
@@ -37,7 +37,7 @@ function TopNavbar({ activePage = 'Dashboard' }) {
               transition-all
               outline-none
             "
-          />
+          /> */}
         </div>
 
       </div>
@@ -92,11 +92,11 @@ function TopNavbar({ activePage = 'Dashboard' }) {
           </button> */}
 
           {/* Temporary avatar */}
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-on-primary">
+          {/* <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-on-primary">
             <span className="material-symbols-outlined text-[20px]">
               person
             </span>
-          </div>
+          </div> */}
 
         </div>
 

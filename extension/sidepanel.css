@@ -541,3 +541,167 @@ footer {
   background: var(--success-bg);
   color: #008000;
 }
+
+
+/* Classification clause preview */
+#classification-content .classification-clause-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+#classification-content .classification-clause-preview.expanded {
+  display: block;
+  overflow: visible;
+}
+
+/* Classification reason styling */
+#classification-content .classification-reason-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  border-radius: 7px;
+
+  color: #1e40af;
+  padding: 8px 10px;
+  margin: 8px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+#classification-content .classification-reason-preview.expanded {
+  display: block;
+  overflow: visible;
+}
+
+/* Keep Read more below the reason */
+#classification-content .read-more-button {
+  display: inline-block;
+  margin-top: 2px;
+}
+
+
+/* -----------------------------------------
+   Overall Document Risk Score
+----------------------------------------- */
+
+.document-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.document-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-risk {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 94px;
+}
+
+.document-risk[hidden] {
+  display: none;
+}
+
+.document-risk-ring {
+  --score-angle: 0deg;
+  --score-color: #176b57;
+
+  width: 88px;
+  height: 88px;
+  padding: 7px;
+  border-radius: 50%;
+
+  background: conic-gradient(
+    from -90deg,
+    var(--score-color) 0deg var(--score-angle),
+    #e1e5e7 var(--score-angle) 360deg
+  );
+
+  display: grid;
+  place-items: center;
+}
+
+.document-risk-ring.high {
+  --score-color: #b42318;
+}
+
+.document-risk-ring.medium {
+  --score-color: #d69b16;
+}
+
+.document-risk-ring.low {
+  --score-color: #18794e;
+}
+
+.document-risk-ring.unknown {
+  --score-color: #64748b;
+}
+
+.document-risk-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.document-risk-number {
+  font-size: 27px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #123778;
+}
+
+.document-risk-total {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.document-risk-level {
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.document-risk-level.high {
+  color: var(--danger);
+}
+
+.document-risk-level.medium {
+  color: var(--warning);
+}
+
+.document-risk-level.low {
+  color: var(--success);
+}
+
+.document-risk-level.unknown {
+  color: var(--muted);
+}
+
+.document-risk-flagged {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+}
+

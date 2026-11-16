@@ -14,6 +14,74 @@ router = APIRouter(
 scorer = ToSRiskScorer()
 
 
+# ---------------------------------------------------------------
+# DOCUMENT-LEVEL RISK (Guarino et al., 2021, Table 2 weights)
+# ---------------------------------------------------------------
+# Weighted unfairness = sum(weight of each clause) / number of clauses.
+# A clause with no red flag counts as 0. If a clause triggers several
+# categories, the highest category weight is used (the formula expects
+# one category per clause).
+# The 0-100 scaling and the Low/Medium/High cutoffs are implementation
+# choices, NOT from the paper.
+DOCUMENT_CATEGORY_WEIGHTS = {
+    "Limitation of liability": 2,
+    "Unilateral termination": 2,
+    "Unilateral change": 2,
+    "Content removal": 2,
+    "Contract by using": 2,
+    "Choice of law": 1,
+    "Jurisdiction": 1,
+    "Arbitration": 1,
+}
+MAX_DOCUMENT_WEIGHT = 2
+
+
+def compute_document_risk(results):
+    total_clauses = len(results)
+
+    if total_clauses == 0:
+        return {
+            "score": 0.0,
+            "level": "Low Risk",
+            "flagged_clauses": 0,
+            "total_clauses": 0,
+            "weighted_unfairness": 0.0,
+            "method": "Guarino et al. (2021) weighted unfairness",
+        }
+
+    total_weight = 0
+    flagged = 0
+
+    for clause in results:
+        weights = [
+            DOCUMENT_CATEGORY_WEIGHTS[flag["category"]]
+            for flag in clause["red_flags"]
+            if flag["category"] in DOCUMENT_CATEGORY_WEIGHTS
+        ]
+        if weights:
+            flagged += 1
+            total_weight += max(weights)
+
+    unfairness = total_weight / total_clauses
+    score = round(100 * unfairness / MAX_DOCUMENT_WEIGHT, 2)
+
+    if score < 40:
+        level = "Low Risk"
+    elif score < 70:
+        level = "Medium Risk"
+    else:
+        level = "High Risk"
+
+    return {
+        "score": score,
+        "level": level,
+        "flagged_clauses": flagged,
+        "total_clauses": total_clauses,
+        "weighted_unfairness": round(unfairness, 4),
+        "method": "Guarino et al. (2021) weighted unfairness",
+    }
+
+
 @router.post("/analyze")
 def analyze(document: dict):
 
@@ -125,7 +193,11 @@ def analyze(document: dict):
 
                 "Low Risk": low_risk,
 
-            }
+            },
+
+            # NEW (additive): whole-document risk score.
+            # All fields above are unchanged.
+            "document_risk": compute_document_risk(results),
 
         }
 

@@ -15,6 +15,7 @@ const clauseCountElement = document.getElementById("clause-count");
 const highRiskCountElement = document.getElementById("high-risk-count");
 const serviceCountElement = document.getElementById("service-count");
 const analyzeButton = document.getElementById("analyze-button");
+const documentRiskElement = document.getElementById("document-risk");
 let clauseSummaries = [];
 
 // Backend API
@@ -77,6 +78,10 @@ function resetResults() {
   clauseCountElement.textContent = "—";
   highRiskCountElement.textContent = "—";
   serviceCountElement.textContent = "0/3";
+  if (documentRiskElement) {
+    documentRiskElement.replaceChildren();
+    documentRiskElement.hidden = true;
+  }
 }
 
 // --------------------------------------------------
@@ -264,8 +269,74 @@ function renderRiskDetails(clause, riskClass) {
 }
 
 
+function renderDocumentRisk(documentRisk) {
+  if (!documentRiskElement) return;
+
+  documentRiskElement.replaceChildren();
+
+  if (
+    !documentRisk ||
+    !Number.isFinite(Number(documentRisk.score))
+  ) {
+    documentRiskElement.hidden = true;
+    return;
+  }
+
+  const score = Math.max(
+    0,
+    Math.min(100, Number(documentRisk.score))
+  );
+
+  const level = documentRisk.level || "Unknown Risk";
+
+  const levelClass = level.toLowerCase().includes("high")
+    ? "high"
+    : level.toLowerCase().includes("medium")
+      ? "medium"
+      : level.toLowerCase().includes("low")
+        ? "low"
+        : "unknown";
+
+  const ring = el("div", `document-risk-ring ${levelClass}`);
+
+  ring.style.setProperty(
+    "--score-angle",
+    `${score * 3.6}deg`
+  );
+
+  const ringInner = el("div", "document-risk-ring-inner");
+
+  ringInner.append(
+    el("strong", "document-risk-number", String(Math.round(score))),
+    el("span", "document-risk-total", "/ 100")
+  );
+
+  ring.appendChild(ringInner);
+
+  const levelLabel = el(
+    "span",
+    `document-risk-level ${levelClass}`,
+    level
+  );
+
+  const flaggedLabel = el(
+    "span",
+    "document-risk-flagged",
+    `${documentRisk.flagged_clauses ?? 0}/${documentRisk.total_clauses ?? 0} flagged`
+  );
+
+  documentRiskElement.append(
+    ring,
+    levelLabel,
+    flaggedLabel
+  );
+
+  documentRiskElement.hidden = false;
+}
+
 
 function renderRisk(data) {
+  renderDocumentRisk(data.document_risk);
   const ranked = data.ranked_clauses || {};
 
   const groups = [
@@ -429,10 +500,52 @@ function renderClassification(data) {
     card.appendChild(
       el("strong", null, `${clause.category || "Uncategorized"}${conf}`)
     );
-    card.appendChild(el("p", null, clause.clause || clause.text || ""));
+    
+    // Compact two-line clause preview.
+    const clauseText = el(
+      "p",
+      "classification-clause-preview",
+      clause.clause || clause.text || ""
+    );
+    
+    card.appendChild(clauseText);
+    
+    // Reason appears below the clause.
+    let reasonText = null;
+
     if (clause.reason) {
-      card.appendChild(el("p", "reason", `Reason: ${clause.reason}`));
+      reasonText = el(
+        "p",
+        "classification-reason-preview",
+        `Reason: ${clause.reason}`
+      );
+
+      card.appendChild(reasonText);
     }
+
+    // Read more / Read less button.
+    const readMoreButton = el(
+      "button",
+      "read-more-button",
+      "Read more"
+    );
+
+    readMoreButton.type = "button";
+
+    readMoreButton.addEventListener("click", () => {
+      const expanded = clauseText.classList.toggle("expanded");
+      
+      if (reasonText) {
+        reasonText.classList.toggle("expanded", expanded);
+      }
+
+      readMoreButton.textContent = expanded
+        ? "Read less"
+        : "Read more";
+    });
+
+    card.appendChild(readMoreButton);
+
     classificationContent.appendChild(card);
   });
 }

@@ -107,7 +107,7 @@ function Sidebar({activePage='Dashboard'}) {
             </span>
           </button> */}
 
-          <button className="flex items-center w-full gap-3 px-4 py-3 transition-colors rounded-lg text-error hover:bg-error-container/10">
+          {/* <button className="flex items-center w-full gap-3 px-4 py-3 transition-colors rounded-lg text-error hover:bg-error-container/10">
             <span className="material-symbols-outlined">
               logout
             </span>
@@ -115,7 +115,7 @@ function Sidebar({activePage='Dashboard'}) {
             <span className="font-label-md">
               Sign Out
             </span>
-          </button>
+          </button> */}
 
         </div>
 
