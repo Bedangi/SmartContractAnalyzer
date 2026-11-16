@@ -126,3 +126,117 @@ class ToSRiskScorer:
             "all_probabilities": {LABELS[i]: float(probs[i]) for i in range(len(LABELS))}
         }
 
+# """Standalone T&C risk scoring adapter for the UNCHANGED predict.py.
+
+# Use from the main app:
+#     from risk_scoring import score_document
+#     result = score_document(clauses, tokenizer, model, device)
+
+# Or use existing captured text output:
+#     from risk_scoring import score_from_predict_outputs
+#     result = score_from_predict_outputs(outputs)
+
+# Research basis: Guarino et al. (2021), Section 4, Table 2 and the
+# weighted unfairness formula. The 0-100 rescaling, multi-label handling,
+# and Low/Medium/High cutoffs below are IMPLEMENTATION choices, not from
+# that paper. The existing detector predicts unfair-category presence,
+# not independently assessed severity.
+# """
+
+# import contextlib
+# import io
+# import re
+# from typing import List, Optional
+
+# # Category weights from Guarino et al. (2021), Table 2.
+# CATEGORY_WEIGHTS = {
+#     "Limitation of liability": 2,
+#     "Unilateral termination": 2,
+#     "Unilateral change": 2,
+#     "Content removal": 2,
+#     "Contract by using": 2,
+#     "Choice of law": 1,
+#     "Jurisdiction": 1,
+#     "Arbitration": 1,
+# }
+
+# _ANSI = re.compile(r"\x1b\[[0-9;]*m")
+# _FLAG = re.compile(r"Flag Status\s*:\s*(.*)", re.IGNORECASE)
+# _LABEL = re.compile(r"^\s*[•*-]\s*(.+?)\s*\((\d+(?:\.\d+)?)% confidence\)\s*$")
+
+
+# def _extract_categories(output: str) -> List[str]:
+#     """Parse stdout printed by predict.evaluate_clause, without changing predict.py."""
+#     clean = _ANSI.sub("", output)
+#     match = _FLAG.search(clean)
+#     if not match:
+#         raise ValueError("Missing 'Flag Status' in predict.py output")
+#     status = match.group(1).upper()
+#     if "NO RED FLAG" in status:
+#         return []
+#     if "RED FLAG" not in status:
+#         raise ValueError("Unrecognized prediction status")
+
+#     categories = []
+#     for line in clean.splitlines():
+#         item = _LABEL.match(line)
+#         if item:
+#             name = item.group(1).strip()
+#             if name in CATEGORY_WEIGHTS:
+#                 categories.append(name)
+#     if not categories:
+#         raise ValueError("Red flag present, but no recognized unfair-category label found")
+#     return categories
+
+
+# def score_from_predict_outputs(outputs: List[str]) -> dict:
+#     """Score an entire document from one printed predict.py output per clause.
+
+#     Every clause, including NO RED FLAG clauses, must be included. Since
+#     the published scoring formula requires one category per clause, this
+#     adapter uses the highest category weight if multiple labels trigger.
+#     """
+#     if not outputs:
+#         raise ValueError("Provide at least one prediction output")
+
+#     total = 0
+#     for output in outputs:
+#         categories = _extract_categories(output)
+#         if categories:
+#             total += max(CATEGORY_WEIGHTS[c] for c in categories)
+
+#     # Guarino et al. (2021): weighted unfairness = sum(weights) / n clauses.
+#     unfairness = total / len(outputs)
+#     # Implementation display scaling: the max category weight is 2.
+#     risk = round(100 * unfairness / 2, 2)
+
+#     # Provisional display cutoffs, NOT published in Guarino et al.
+#     level = "Low Risk" if risk < 40 else "Medium Risk" if risk < 70 else "High Risk"
+#     return {"risk_score_0_to_100": risk, "risk_level": level}
+
+
+# def score_document(clauses: List[str], tokenizer=None, model=None, device=None) -> dict:
+#     """Run unchanged predict.evaluate_clause for each clause and score the outputs.
+
+#     If main app already loaded Legal-BERT, pass tokenizer, model, device
+#     to reuse it. Otherwise, they will be loaded once with predict.load_model().
+#     """
+#     from predict import evaluate_clause, load_model
+
+#     if not clauses or any(not isinstance(c, str) or not c.strip() for c in clauses):
+#         raise ValueError("clauses must be a non-empty list of non-blank strings")
+#     if tokenizer is None or model is None or device is None:
+#         tokenizer, model, device = load_model()
+#     id2label = model.config.id2label
+
+#     outputs = []
+#     for clause in clauses:
+#         captured = io.StringIO()
+#         with contextlib.redirect_stdout(captured):
+#             evaluate_clause(clause, tokenizer, model, device, id2label)
+#         outputs.append(captured.getvalue())
+#     return score_from_predict_outputs(outputs)
+
+
+
+

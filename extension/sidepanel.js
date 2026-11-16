@@ -114,68 +114,114 @@ function renderSummary(data) {
   );
 }
 
-function renderRiskDetails(clause) {
-  const details = el("div", "risk-detail result-card");
 
-  details.appendChild(el("h4", null, "Risk Details"));
+function renderRiskDetails(clause, riskClass) {
+  const details = el(
+    "div",
+    `risk-detail result-card ${riskClass || ""}`
+  );
 
-  // Overall risk level and weighted risk score
+  // Helper to create a collapsed section.
+  function createDisclosure(title) {
+    const section = el("details", "risk-disclosure");
+    const heading = el("summary", null, title);
+    const content = el("div", "disclosure-content");
+
+    section.append(heading, content);
+
+    return { section, content };
+  }
+
+  // 1. Risk Details
+  const riskSection = createDisclosure("Risk Details");
+
   const level = clause.risk_level || "Not provided";
   const score = Number(clause.risk_score ?? 0);
 
-  details.appendChild(
-    el("p", null, `Overall risk level: ${level}`)
+  const levelText = el("p");
+  levelText.append(
+    document.createTextNode("Overall risk level: "),
+    el("strong", null, level)
   );
 
-  details.appendChild(
-    el("p", null, `Overall risk score: ${score.toFixed(2)} / 9.5`)
+  const scoreText = el("p");
+  scoreText.append(
+    document.createTextNode("Overall risk score: "),
+    el("strong", null, `${score.toFixed(2)} / 9.5`)
   );
 
-  // Show all category probabilities returned by the model
+  riskSection.content.append(levelText, scoreText);
+
+  details.appendChild(riskSection.section);
+
+  // 2. Category Probabilities
+  
+  // 2. Category Probabilities
   const probabilities = clause.all_probabilities;
 
-  if (probabilities && typeof probabilities === "object") {
-    details.appendChild(
-      el("h4", null, "Category Probabilities")
+  if (
+    probabilities &&
+    typeof probabilities === "object" &&
+    !Array.isArray(probabilities)
+  ) {
+    const probabilitySection = createDisclosure(
+      "Category Probabilities"
     );
 
-    Object.entries(probabilities).forEach(([category, probability]) => {
-      const value = Number(probability);
+    const topFour = Object.entries(probabilities)
+      .map(([category, value]) => ({
+        category,
+        probability: Number(value)
+      }))
+      .filter(({ probability }) => Number.isFinite(probability))
+      .sort((a, b) => b.probability - a.probability)
+      .slice(0, 4);
 
-      if (!Number.isFinite(value)) return;
-
-      const percentage = Math.max(0, Math.min(100, value * 100));
+    topFour.forEach(({ category, probability }) => {
+      const percentage = Math.max(
+        0,
+        Math.min(100, probability * 100)
+      );
 
       const row = el("div", "probability-row");
-
       const label = el("div", "probability-label");
-      label.appendChild(el("span", null, category));
-      label.appendChild(
+
+      label.append(
+        el("span", null, category),
         el("span", null, `${percentage.toFixed(1)}%`)
       );
 
       const track = el("div", "probability-track");
       const bar = el("div", "probability-bar");
+
       bar.style.width = `${percentage}%`;
 
       track.appendChild(bar);
       row.append(label, track);
-      details.appendChild(row);
+
+      probabilitySection.content.appendChild(row);
     });
+
+    details.appendChild(probabilitySection.section);
   }
 
-  // Show only categories that crossed their thresholds
+
+  // 3. Triggered Red Flags
   const redFlags = Array.isArray(clause.red_flags)
     ? clause.red_flags
     : [];
 
-  details.appendChild(
-    el("h4", null, `Triggered Red Flags (${redFlags.length})`)
+  const flagSection = createDisclosure(
+    `Triggered Red Flags (${redFlags.length})`
   );
 
   if (redFlags.length === 0) {
-    details.appendChild(
-      el("p", "empty-state", "No categories crossed their configured thresholds.")
+    flagSection.content.appendChild(
+      el(
+        "p",
+        "empty-state",
+        "No categories crossed their configured thresholds."
+      )
     );
   } else {
     redFlags.forEach((flag) => {
@@ -185,13 +231,13 @@ function renderRiskDetails(clause) {
         el("p", null, flag.category || "Unknown category")
       );
 
-      details.appendChild(flagCard);
+      flagSection.content.appendChild(flagCard);
     });
   }
 
+  details.appendChild(flagSection.section);
 
-  
-  // Find the corresponding clause summary
+  // 4. Clause Summary
   const clauseSummary = clauseSummaries.find((item) => {
     if (item.id != null && clause.clause_id != null) {
       return String(item.id) === String(clause.clause_id);
@@ -205,18 +251,19 @@ function renderRiskDetails(clause) {
   });
 
   if (clauseSummary?.summary) {
-    details.appendChild(
-      el("h4", null, "Clause Summary")
-    );
+    const summarySection = createDisclosure("Clause Summary");
 
-    details.appendChild(
+    summarySection.content.appendChild(
       el("p", null, clauseSummary.summary)
     );
+
+    details.appendChild(summarySection.section);
   }
 
-  
   return details;
 }
+
+
 
 function renderRisk(data) {
   const ranked = data.ranked_clauses || {};
@@ -233,16 +280,21 @@ function renderRisk(data) {
 
   highRiskCountElement.textContent = lists[0].length;
 
+  
   riskCounts.replaceChildren(
-    ...groups.map((g, i) =>
-      el("span", `risk-pill ${g.cls}`, `${g.label}: ${lists[i].length}`)
-    )
+    ...groups.map((g, i) => {
+      const pill = el("span", `risk-pill ${g.cls}`);
+      pill.appendChild(document.createTextNode(`${g.label}: `));
+      pill.appendChild(el("strong", null, String(lists[i].length)));
+      return pill;
+    })
   );
+
 
   riskContent.replaceChildren();
 
   groups.forEach((g, i) => {
-    riskContent.appendChild(el("h4", null, g.label));
+    riskContent.appendChild(el("h4", `risk-heading ${g.cls}`, g.label));
 
     if (lists[i].length === 0) {
       riskContent.appendChild(
@@ -253,19 +305,50 @@ function renderRisk(data) {
 
     lists[i].forEach((clause) => {
       const card = el("div", `result-card ${g.cls}`);
+
       card.appendChild(
         el("strong", null, clause.section || clause.clause_id || "Clause")
       );
-      card.appendChild(
-        el("p", null, clause.text || clause.clause || "Clause text unavailable")
+
+      const clauseText = el(
+        "p",
+        "clause-preview",
+        clause.text || clause.clause || "Clause text unavailable"
       );
+
+      card.appendChild(clauseText);
+
+      // Read more / Read less button.
+      const readMoreButton = el(
+        "button",
+        "read-more-button",
+        "Read more"
+      );
+
+      readMoreButton.type = "button";
+
+      readMoreButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const expanded = clauseText.classList.toggle("expanded");
+
+        readMoreButton.textContent = expanded
+          ? "Read less"
+          : "Read more";
+      });
+
+      card.appendChild(readMoreButton);
+
       if (clause.reason) {
-        card.appendChild(el("p", "reason", `Reason: ${clause.reason}`));
+        card.appendChild(
+          el("p", "reason", `Reason: ${clause.reason}`)
+        );
       }
-      
+
       card.style.cursor = "pointer";
       card.setAttribute("role", "button");
       card.setAttribute("tabindex", "0");
+
       card.setAttribute(
         "aria-label",
         `View risk details for ${
@@ -274,25 +357,29 @@ function renderRisk(data) {
       );
 
       function toggleRiskDetails() {
-        // Close any previously opened details panel.
         const previousDetails = riskContent.querySelector(".risk-detail");
+
         const wasThisClauseOpen =
           previousDetails?.previousElementSibling === card;
 
         previousDetails?.remove();
 
-        // Clicking the same clause again closes its details.
         if (wasThisClauseOpen) return;
 
-        // Create a new details panel immediately below this clause.
-        const details = renderRiskDetails(clause);
-        card.insertAdjacentElement("afterend", details);
+        const riskDetails = renderRiskDetails(clause, g.cls);
+
+        card.insertAdjacentElement("afterend", riskDetails);
       }
 
-      card.addEventListener("click", toggleRiskDetails);
+      card.addEventListener("click", (event) => {
+        if (event.target.closest(".read-more-button")) return;
+        toggleRiskDetails();
+      });
 
       card.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
+          if (event.target !== card) return;
+
           event.preventDefault();
           toggleRiskDetails();
         }
@@ -300,9 +387,15 @@ function renderRisk(data) {
 
       riskContent.appendChild(card);
 
+      // Show Read more only when the text exceeds two lines.
+      // requestAnimationFrame(() => {
+      //   readMoreButton.hidden =
+      //     clauseText.scrollHeight <= clauseText.clientHeight + 1;
+      // });
     });
   });
 }
+
 
 function renderClassification(data) {
   const clauses = Array.isArray(data.clauses) ? data.clauses : [];
@@ -618,11 +711,17 @@ async function extractPageText() {
 // Do not call extractPageText() here unless you want to switch flows.
 
 function initializeExtension() {
+  // initTabs();
+  // analyzeButton?.addEventListener("click", extractPageText);
+
+  // // Automatically analyze the stored contract when the panel opens.
+  // extractPageText();
+  
   initTabs();
-  analyzeButton?.addEventListener("click", extractPageText);
+  analyzeButton?.addEventListener("click", analyzeStoredContract);
 
   // Automatically analyze the stored contract when the panel opens.
-  extractPageText();
+  analyzeStoredContract();
 }
 
 initializeExtension();

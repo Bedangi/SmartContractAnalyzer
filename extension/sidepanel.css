@@ -334,3 +334,210 @@ footer {
   font-size: 13px;
 }
 
+
+/* -----------------------------------------
+   Compact risk clause cards
+----------------------------------------- */
+
+#risk-content .clause-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+#risk-content .clause-preview.expanded {
+  display: block;
+  overflow: visible;
+}
+
+.read-more-button {
+  padding: 3px 0;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.read-more-button:hover {
+  text-decoration: underline;
+}
+
+.read-more-button[hidden] {
+  display: none;
+}
+
+/* -----------------------------------------
+   Risk-colored details panels
+----------------------------------------- */
+
+#risk-content .risk-detail, .risk-pill {
+  margin: -4px 0 10px 10px;
+  border-left: 4px solid;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.risk-pill.risk-high {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+}
+
+.risk-pill.risk-medium {
+  background: var(--warning-bg);
+  border-color: var(--warning);
+}
+
+.risk-pill.risk-low {
+  background: var(--success-bg);
+  border-color: var(--success);
+}
+
+#risk-content .risk-detail.risk-high {
+  background: var(--danger-bg);
+  border-left-color: var(--danger);
+}
+
+#risk-content .risk-detail.risk-medium {
+  background: var(--warning-bg);
+  border-left-color: var(--warning);
+}
+
+#risk-content .risk-detail.risk-low {
+  background: var(--success-bg);
+  border-left-color: var(--success);
+}
+
+/* -----------------------------------------
+   Collapsible detail sections
+----------------------------------------- */
+
+.risk-disclosure {
+  margin: 0;
+  border-bottom: 1px solid #00000018;
+}
+
+.risk-disclosure:last-child {
+  border-bottom: none;
+}
+
+.risk-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 2px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.risk-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.risk-disclosure summary::after {
+  content: "⌄";
+  color: var(--muted);
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.risk-disclosure[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.disclosure-content {
+  padding: 0 2px 8px;
+}
+
+.disclosure-content p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+/* Risk Assessment count alignment */
+#risk-counts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  margin: 14px 0 20px;
+}
+
+#risk-counts .risk-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+#risk-counts .risk-count-number {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* Clause Read more / Read less */
+#risk-content .clause-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+#risk-content .clause-preview.expanded {
+  display: block;
+  overflow: visible;
+}
+
+.read-more-button {
+  display: inline-block;
+  padding: 3px 0;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.read-more-button:hover {
+  text-decoration: underline;
+}
+
+.risk-heading {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Color variations matching your risk pills */
+.risk-heading.risk-high {
+  background: var(--danger-bg);
+  color: #cc0000;
+}
+
+.risk-heading.risk-medium {
+  background: var(--warning-bg);
+  color: #b38600;
+}
+
+.risk-heading.risk-low {
+  background: var(--success-bg);
+  color: #008000;
+}

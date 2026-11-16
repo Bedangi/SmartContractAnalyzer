@@ -15,60 +15,60 @@ export const currentContract = {
       "text": "Please read these Terms of Use (these \"Terms\") carefully as they govern your access to Spotify's personalized services for streaming music and other content, including all of our websites and software applications that incorporate or link to these Terms (collectively, the \"Spotify Service\") and any music, videos, podcasts, or other material that is made available through the Spotify Service (the \"Content\").\n\nAccess to the Spotify Service may be subject to additional terms and conditions presented by Spotify, which are hereby incorporated by this reference into these Terms.\n\nBy signing up for, or otherwise accessing, the Spotify Service, you agree to these Terms. If you do not agree to these Terms, then you must not access the Spotify Service.",
       "id": "C1"
     },
-    {
-      "section": "Spotify Service Provider",
-      "parent_section": "1. Introduction",
-      "text": "The Spotify Service is provided by Spotify AB, Regeringsgatan 19, 111 53, Stockholm, Sweden.",
-      "id": "C2"
-    },
-    {
-      "section": "Age and eligibility requirements",
-      "parent_section": "1. Introduction",
-      "text": "In order to access the Spotify Service, you need to (1) be 13 years of age (or the equivalent minimum age in your home country) or older, (2) have parent or guardian consent if you are a minor in your home country; (3) have the power to enter a binding contract with us and not be barred from doing so under any applicable laws, and (4) reside in a country where the Service is available. You also promise that any registration information that you submit to Spotify is true, accurate, and complete, and you agree to keep it that way at all times. Furthermore, Spotify undertakes no liability in relation to a violation of these Terms by you. If you are a minor in your home country, your parent or guardian will need to enter into these Terms on your behalf. You can find additional information regarding minimum age requirements in the registration process. If you do not meet the minimum age requirements then Spotify will be unable to register you as a user.",
-      "id": "C3"
-    },
-    {
-      "section": "Spotify Service Options",
-      "parent_section": "2. The Spotify Service Provided by Us.",
-      "text": "We provide numerous Spotify Service options. Certain Spotify Service options are provided free-of-charge, while other options require payment before they can be accessed (the \"Paid Subscriptions\"). We may also offer special promotional plans, memberships, or services, including offerings of third-party products and services. We are not responsible for the products and services provided by such third parties.\n\nThe Unlimited Service may not be available to all users. We will explain which services are available to you when you are signing up for the services. If you cancel your subscription to the Unlimited Service, or if your subscription to the Unlimited Service is interrupted (for example, if you change your payment details), you may not be able to re-subscribe for the Unlimited Service. Note that the Unlimited Service may be discontinued in the future, in which case you will no longer be charged for the Service.",
-      "id": "C4"
-    },
-    {
-      "section": "Trials",
-      "parent_section": "2. The Spotify Service Provided by Us.",
-      "text": "From time to time, we or others on our behalf may offer trials of Paid Subscriptions for a specified period without payment or at a reduced rate (a \"Trial\"). By accessing a Spotify Service via a Trial, you agree to the Spotify Premium Promotional Offer Terms.",
-      "id": "C5"
-    },
-    {
-      "section": "Third-Party Applications, Devices and Open Source Software",
-      "parent_section": "2. The Spotify Service Provided by Us.",
-      "text": "The Spotify Service may be integrated with, or may otherwise interact with, third-party applications, websites, and services (\"Third-Party Applications\") and third-party personal computers, mobile handsets, tablets, wearable devices, speakers, and other devices (\"Devices\"). Your use of such Third-Party Applications and Devices may be subject to additional terms, conditions and policies provided to you by the applicable third party. Spotify does not guarantee that Third-Party Applications and Devices will be compatible with the Spotify Service.",
-      "id": "C6"
-    },
-    {
-      "section": "Service Limitations and Modifications",
-      "parent_section": "2. The Spotify Service Provided by Us.",
-      "text": "We use reasonable care and skill to keep the Spotify Service operational and to provide you with a personalized, immersive audio experience. However, our service offerings and their availability may change from time to time and subject to applicable laws, without liability to you; for example:\n\n- The Spotify Services may experience temporary interruptions due to technical difficulties, maintenance or testing, or updates, including those required to reflect changes in relevant laws and regulatory requirements.\n- We aim to evolve and improve our Services constantly, and we may modify, suspend, or stop (permanently or temporarily) providing all of part of the Spotify Service (including particular functions, features, subscription plans and promotional offerings).\n- Spotify has no obligation to provide any specific content through the Spotify Service, and Spotify or the applicable owners may remove particular songs, videos, podcasts, and other Content without notice.\n\nIf you have prepaid fees directly to Spotify for a Paid Subscription that Spotify discontinues prior to the end of your Pre-Paid Period (as that term is defined in the Payments and cancellations section below), Spotify will refund you the prepaid fees for the Pre-Paid Period for any unused part of your then current Paid Subscription after such discontinuation. Your account and billing information must be up to date in order for us to refund you.\n\nSpotify has no liability to you, nor any obligation to provide a refund to you, in connection with internet or other service outages or failures that are caused by the actions of government authorities, other third parties or events beyond our control.",
-      "id": "C7"
-    },
-    {
-      "section": "Creating a Spotify account",
-      "parent_section": "3. Your Access to the Spotify Service",
-      "text": "You may need to create a Spotify account to access all or part of the Spotify Service. Your username and password are for your personal access only and should be kept confidential. You understand that you are responsible for all access (including any unauthorized access) via your username and password. Notify our Customer Service team immediately if your username or password is lost or stolen, or if you believe there has been unauthorized access to your account.\n\nSpotify may reclaim, or require you to change, your username for any reason.",
-      "id": "C8"
-    },
-    {
-      "section": "Access to the Spotify Services",
-      "parent_section": "Your rights to access the Spotify Service",
-      "text": "Subject to your compliance with these Terms (including any other applicable terms and conditions), we grant to you limited, non-exclusive, revocable permission to access the Spotify Service for your personal, non-commercial purpose (collectively, \"Access\"). This Access shall remain in effect unless and until terminated by you or Spotify. While accessing the Spotify Service, you may enjoy the Content for your own personal, non-commercial purpose. Except for the Access, Spotify grants no right, title or interest to you in the Content. You agree that you will not redistribute or transfer the Spotify Service or the Content.\n\nThe Spotify software applications and the Content are not sold or transferred to you, and Spotify and/or its licensors retain ownership of all copies of the Spotify software applications and Content even after installation on your Devices.",
-      "id": "C9"
-    },
-    {
-      "section": "Spotify's Proprietary Rights",
-      "parent_section": "Your rights to access the Spotify Service",
-      "text": "The Spotify Service is the property of Spotify. The Content is the property of Spotify or Spotify's licensors. All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand (\"Spotify Brand Features\") are the sole property of Spotify or its licensors. These Terms do not grant you any rights to use any Spotify Brand Features whether for commercial or non-commercial use.\n\nYou agree to abide by the Spotify User Guidelines and not to access the Spotify Service, or any part thereof in any manner not expressly permitted by these Terms.",
-      "id": "C10"
-    },
+    // {
+    //   "section": "Spotify Service Provider",
+    //   "parent_section": "1. Introduction",
+    //   "text": "The Spotify Service is provided by Spotify AB, Regeringsgatan 19, 111 53, Stockholm, Sweden.",
+    //   "id": "C2"
+    // },
+    // {
+    //   "section": "Age and eligibility requirements",
+    //   "parent_section": "1. Introduction",
+    //   "text": "In order to access the Spotify Service, you need to (1) be 13 years of age (or the equivalent minimum age in your home country) or older, (2) have parent or guardian consent if you are a minor in your home country; (3) have the power to enter a binding contract with us and not be barred from doing so under any applicable laws, and (4) reside in a country where the Service is available. You also promise that any registration information that you submit to Spotify is true, accurate, and complete, and you agree to keep it that way at all times. Furthermore, Spotify undertakes no liability in relation to a violation of these Terms by you. If you are a minor in your home country, your parent or guardian will need to enter into these Terms on your behalf. You can find additional information regarding minimum age requirements in the registration process. If you do not meet the minimum age requirements then Spotify will be unable to register you as a user.",
+    //   "id": "C3"
+    // },
+    // {
+    //   "section": "Spotify Service Options",
+    //   "parent_section": "2. The Spotify Service Provided by Us.",
+    //   "text": "We provide numerous Spotify Service options. Certain Spotify Service options are provided free-of-charge, while other options require payment before they can be accessed (the \"Paid Subscriptions\"). We may also offer special promotional plans, memberships, or services, including offerings of third-party products and services. We are not responsible for the products and services provided by such third parties.\n\nThe Unlimited Service may not be available to all users. We will explain which services are available to you when you are signing up for the services. If you cancel your subscription to the Unlimited Service, or if your subscription to the Unlimited Service is interrupted (for example, if you change your payment details), you may not be able to re-subscribe for the Unlimited Service. Note that the Unlimited Service may be discontinued in the future, in which case you will no longer be charged for the Service.",
+    //   "id": "C4"
+    // },
+    // {
+    //   "section": "Trials",
+    //   "parent_section": "2. The Spotify Service Provided by Us.",
+    //   "text": "From time to time, we or others on our behalf may offer trials of Paid Subscriptions for a specified period without payment or at a reduced rate (a \"Trial\"). By accessing a Spotify Service via a Trial, you agree to the Spotify Premium Promotional Offer Terms.",
+    //   "id": "C5"
+    // },
+    // {
+    //   "section": "Third-Party Applications, Devices and Open Source Software",
+    //   "parent_section": "2. The Spotify Service Provided by Us.",
+    //   "text": "The Spotify Service may be integrated with, or may otherwise interact with, third-party applications, websites, and services (\"Third-Party Applications\") and third-party personal computers, mobile handsets, tablets, wearable devices, speakers, and other devices (\"Devices\"). Your use of such Third-Party Applications and Devices may be subject to additional terms, conditions and policies provided to you by the applicable third party. Spotify does not guarantee that Third-Party Applications and Devices will be compatible with the Spotify Service.",
+    //   "id": "C6"
+    // },
+    // {
+    //   "section": "Service Limitations and Modifications",
+    //   "parent_section": "2. The Spotify Service Provided by Us.",
+    //   "text": "We use reasonable care and skill to keep the Spotify Service operational and to provide you with a personalized, immersive audio experience. However, our service offerings and their availability may change from time to time and subject to applicable laws, without liability to you; for example:\n\n- The Spotify Services may experience temporary interruptions due to technical difficulties, maintenance or testing, or updates, including those required to reflect changes in relevant laws and regulatory requirements.\n- We aim to evolve and improve our Services constantly, and we may modify, suspend, or stop (permanently or temporarily) providing all of part of the Spotify Service (including particular functions, features, subscription plans and promotional offerings).\n- Spotify has no obligation to provide any specific content through the Spotify Service, and Spotify or the applicable owners may remove particular songs, videos, podcasts, and other Content without notice.\n\nIf you have prepaid fees directly to Spotify for a Paid Subscription that Spotify discontinues prior to the end of your Pre-Paid Period (as that term is defined in the Payments and cancellations section below), Spotify will refund you the prepaid fees for the Pre-Paid Period for any unused part of your then current Paid Subscription after such discontinuation. Your account and billing information must be up to date in order for us to refund you.\n\nSpotify has no liability to you, nor any obligation to provide a refund to you, in connection with internet or other service outages or failures that are caused by the actions of government authorities, other third parties or events beyond our control.",
+    //   "id": "C7"
+    // },
+    // {
+    //   "section": "Creating a Spotify account",
+    //   "parent_section": "3. Your Access to the Spotify Service",
+    //   "text": "You may need to create a Spotify account to access all or part of the Spotify Service. Your username and password are for your personal access only and should be kept confidential. You understand that you are responsible for all access (including any unauthorized access) via your username and password. Notify our Customer Service team immediately if your username or password is lost or stolen, or if you believe there has been unauthorized access to your account.\n\nSpotify may reclaim, or require you to change, your username for any reason.",
+    //   "id": "C8"
+    // },
+    // {
+    //   "section": "Access to the Spotify Services",
+    //   "parent_section": "Your rights to access the Spotify Service",
+    //   "text": "Subject to your compliance with these Terms (including any other applicable terms and conditions), we grant to you limited, non-exclusive, revocable permission to access the Spotify Service for your personal, non-commercial purpose (collectively, \"Access\"). This Access shall remain in effect unless and until terminated by you or Spotify. While accessing the Spotify Service, you may enjoy the Content for your own personal, non-commercial purpose. Except for the Access, Spotify grants no right, title or interest to you in the Content. You agree that you will not redistribute or transfer the Spotify Service or the Content.\n\nThe Spotify software applications and the Content are not sold or transferred to you, and Spotify and/or its licensors retain ownership of all copies of the Spotify software applications and Content even after installation on your Devices.",
+    //   "id": "C9"
+    // },
+    // {
+    //   "section": "Spotify's Proprietary Rights",
+    //   "parent_section": "Your rights to access the Spotify Service",
+    //   "text": "The Spotify Service is the property of Spotify. The Content is the property of Spotify or Spotify's licensors. All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand (\"Spotify Brand Features\") are the sole property of Spotify or its licensors. These Terms do not grant you any rights to use any Spotify Brand Features whether for commercial or non-commercial use.\n\nYou agree to abide by the Spotify User Guidelines and not to access the Spotify Service, or any part thereof in any manner not expressly permitted by these Terms.",
+    //   "id": "C10"
+    // },
     // {
     //   "section": "Billing",
     //   "parent_section": "Payments and cancellation",
